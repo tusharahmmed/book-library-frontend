@@ -1,2 +1,2 @@
-const main = window.document.getElementById("main");
-console.log(main);
+// const main = window.document.getElementById("main");
+// // console.log(main);
