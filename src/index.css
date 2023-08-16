@@ -1,3 +1,22 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+  background-color: #18181b;
+}
+
+.multi-select .mantine-MultiSelect-input {
+  background-color: #18181b !important;
+  color: white !important;
+  border-radius: 8px;
+  border: 0px;
+}
+.multi-select .mantine-1wlywjh {
+  background-color: #228be6 !important;
+  color: white !important;
+}
+.multi-select .mantine-t9mzg3[data-hovered] {
+  background-color: #228be6 !important;
+  color: white !important;
+}

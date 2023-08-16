@@ -1,8 +1,15 @@
+import {Outlet} from "react-router-dom";
+import {Navbar} from "./components/shared";
+
 function App() {
   return (
-    <div>
-      <h1 className="bg-red-400">Hi</h1>
-    </div>
+    <>
+      <Navbar />
+      <main id="main">
+        <Outlet />
+      </main>
+      {/* <Footer /> */}
+    </>
   );
 }
 
