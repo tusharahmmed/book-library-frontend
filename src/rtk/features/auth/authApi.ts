@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow-restricted-names */
 import {apiSlice} from "../api/ApiSlice";
 import {userLoggedIn} from "./authSlice";
 
@@ -37,7 +38,24 @@ export const authApi = apiSlice.injectEndpoints({
         }
       },
     }),
+    getAuth: builder.query({
+      query: () => ({
+        url: "/auth",
+        method: "GET",
+      }),
+      async onQueryStarted(arg, {dispatch, queryFulfilled}) {
+        try {
+          const result = await queryFulfilled;
+
+          // dispatch loggedin
+          dispatch(userLoggedIn(result.data));
+        } catch (error) {
+          // do nothing
+        }
+      },
+    }),
   }),
 });
 
-export const {useUserLoginMutation, useUserRegisterMutation} = authApi;
+export const {useUserLoginMutation, useUserRegisterMutation, useGetAuthQuery} =
+  authApi;

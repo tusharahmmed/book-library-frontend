@@ -1,5 +1,4 @@
 import {createBrowserRouter} from "react-router-dom";
-import App from "../App";
 import {
   AddBook,
   BookDetailsPage,
@@ -9,11 +8,12 @@ import {
   NotFound,
   RegisterPage,
 } from "../pages";
+import Root from "../Root";
 
 export const routes = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element: <Root />,
     children: [
       {index: true, element: <Home />},
       {path: "/books/:id", element: <BookDetailsPage />},

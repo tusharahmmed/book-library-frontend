@@ -1,16 +1,17 @@
-import {Outlet} from "react-router-dom";
-import {Navbar} from "./components/shared";
+import {RouterProvider} from "react-router-dom";
+import useAuthCheck from "./hooks/useAuthCheck";
+import {routes} from "./routes";
 
 function App() {
-  return (
-    <>
-      <Navbar />
-      <main id="main">
-        <Outlet />
-      </main>
-      {/* <Footer /> */}
-    </>
-  );
+  // check user logged in
+  const checkUser = useAuthCheck();
+
+  if (checkUser)
+    return (
+      <>
+        <RouterProvider router={routes} />
+      </>
+    );
 }
 
 export default App;

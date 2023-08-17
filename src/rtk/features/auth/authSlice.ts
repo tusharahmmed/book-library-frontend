@@ -13,12 +13,12 @@ const authSlice = createSlice({
       // update local storage
       localStorage.setItem(
         "accessToken",
-        JSON.stringify(action.payload.data.accessToken)
+        JSON.stringify(action.payload?.data?.accessToken)
       );
 
       // update state
-      state.accessToken = action.payload.data.accessToken;
-      state.user = action.payload.data.user;
+      state.accessToken = action.payload?.data?.accessToken;
+      state.user = action.payload?.data?.user;
     },
     userLoggedOut: (state) => {
       state.accessToken = undefined;
