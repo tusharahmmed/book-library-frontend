@@ -1,14 +1,69 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import {MultiSelect} from "@mantine/core";
-import {useState} from "react";
+import {useForm, SubmitHandler} from "react-hook-form";
+import {useEffect, useState} from "react";
+import swal from "sweetalert";
+import {IBook} from "../../types/book";
+import {useAppSelector} from "../../rtk/hooks/hook";
+import {useAddBookMutation} from "../../rtk/features/book/bookApi";
 
 const AddBook = () => {
+  const [errorMessage, setErrorMessage] = useState("");
   const [generations, setGenerations]: any = useState([]);
+  // get user
+  const userId = useAppSelector((state) => state.auth?.user?._id);
+  const authorName = useAppSelector((state) => state.auth?.user?.fullName);
+
+  // rtk
+  const [addBook, {isLoading, error, isError, isSuccess}] =
+    useAddBookMutation();
+
+  // hook form
+  const {
+    register,
+    handleSubmit,
+    reset,
+    // formState: {errors},
+  } = useForm<IBook>();
+  const onSubmit: SubmitHandler<IBook> = (data) => {
+    // append to data
+    data.genres = generations;
+    data.authorId = userId;
+
+    if (data.genres?.length === 0) {
+      alert("genre is required");
+      return;
+    }
+
+    // api call
+    addBook(data);
+  };
+
+  // listen response
+  useEffect(() => {
+    setErrorMessage("");
+
+    if (!isLoading && isError) {
+      setErrorMessage(error?.data?.message);
+    }
+
+    // if success
+    if (isSuccess) {
+      reset();
+      setGenerations([]);
+      swal("Successfully add new book", {
+        title: "Success",
+        icon: "success",
+        buttons: false,
+        timer: 1000,
+      });
+    }
+  }, [isSuccess, error]);
 
   return (
     <div className="mt-10 m-auto text-gray-400 w-[90%] md:w-[60%] lg:w-[40%] px-8 py-4 pb-6 bg-[#27272a] rounded">
       <h1 className="text-3xl text-center mb-4">Add A Book</h1>
-      <form className="">
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div className="">
           <div className="mb-4">
             <label className="ml-3 mb-2 inline-block" htmlFor="title">
@@ -19,6 +74,7 @@ const AddBook = () => {
               className="bg-[#18181b] w-full h-[40px] rounded-lg px-4 border-1 border-[#3f3f46] focus:outline-none"
               type="text"
               placeholder="Title"
+              {...register("title", {required: true})}
             />
           </div>
           <div className="mb-4">
@@ -30,6 +86,21 @@ const AddBook = () => {
               className="bg-[#18181b] w-full h-[40px] rounded-lg px-4 border-1 border-[#3f3f46] focus:outline-none"
               type="text"
               placeholder="Authro"
+              defaultValue={authorName}
+              {...register("author", {required: true})}
+            />
+          </div>
+
+          <div className="mb-4">
+            <label className="ml-3 mb-2 inline-block" htmlFor="image">
+              Image
+            </label>
+            <input
+              id="image"
+              className="bg-[#18181b] w-full h-[40px] rounded-lg px-4 border-1 border-[#3f3f46] focus:outline-none"
+              type="text"
+              placeholder="Image"
+              {...register("image", {required: true})}
             />
           </div>
 
@@ -62,6 +133,7 @@ const AddBook = () => {
               className="bg-[#18181b] w-full h-[40px] rounded-lg px-4 border-1 border-[#3f3f46] focus:outline-none"
               type="text"
               placeholder="Year"
+              {...register("publicationYear", {required: true})}
             />
           </div>
 
@@ -75,6 +147,11 @@ const AddBook = () => {
           </div>
         </div>
       </form>
+      {errorMessage && (
+        <div className="mt-4 bg-red-700 text-black-700 p-3 rounded text-center">
+          {errorMessage}
+        </div>
+      )}
     </div>
   );
 };

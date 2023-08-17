@@ -1,12 +1,10 @@
-import {useEffect, useState} from "react";
+import {useEffect} from "react";
 import {useGetAuthQuery} from "../rtk/features/auth/authApi";
 import {useDispatch} from "react-redux";
 import {userLoggedIn} from "../rtk/features/auth/authSlice";
 
 export const useAuthCheck = () => {
-  const [userChecked, setUserChecked] = useState(false);
-
-  const {data} = useGetAuthQuery(undefined);
+  const {data, isLoading} = useGetAuthQuery(undefined);
 
   const dispatch = useDispatch();
 
@@ -18,12 +16,9 @@ export const useAuthCheck = () => {
     if (data) {
       dispatch(userLoggedIn(data.data));
     }
-
-    // after checking
-    setUserChecked(true);
   }, [data, dispatch]);
 
-  return userChecked;
+  return isLoading;
 };
 
 export default useAuthCheck;

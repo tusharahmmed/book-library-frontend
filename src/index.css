@@ -20,3 +20,28 @@ body {
   background-color: #228be6 !important;
   color: white !important;
 }
+
+/* sweetalert css  */
+.swal-modal {
+  background-color: #27272a;
+  color: white !important;
+}
+.swal-title {
+  color: white !important;
+}
+.swal-text {
+  color: white !important;
+}
+.swal-icon--success {
+  border-color: #228be6 !important;
+}
+.swal-icon--success:after,
+.swal-icon--success:before {
+  background: none;
+}
+.swal-icon--success__line {
+  background-color: #228be6;
+}
+.swal-icon--success__hide-corners {
+  background-color: transparent;
+}

@@ -17,7 +17,14 @@ export const routes = createBrowserRouter([
     children: [
       {index: true, element: <Home />},
       {path: "/books/:id", element: <BookDetailsPage />},
-      {path: "/add-book", element: <AddBook />},
+      {
+        path: "/add-book",
+        element: (
+          // <PrivateRoute>
+          <AddBook />
+          // </PrivateRoute>
+        ),
+      },
       {path: "/edit-book/:id", element: <EditBook />},
     ],
   },

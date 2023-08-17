@@ -4,9 +4,9 @@ import {routes} from "./routes";
 
 function App() {
   // check user logged in
-  const checkUser = useAuthCheck();
+  const authCheckLoadin = useAuthCheck();
 
-  if (checkUser)
+  if (!authCheckLoadin)
     return (
       <>
         <RouterProvider router={routes} />
