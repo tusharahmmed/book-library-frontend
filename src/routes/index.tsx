@@ -3,7 +3,7 @@ import {
   AddBook,
   BookDetailsPage,
   EditBook,
-  Home,
+  HomePage,
   LoginPage,
   NotFound,
   RegisterPage,
@@ -15,7 +15,7 @@ export const routes = createBrowserRouter([
     path: "/",
     element: <Root />,
     children: [
-      {index: true, element: <Home />},
+      {index: true, element: <HomePage />},
       {path: "/books/:id", element: <BookDetailsPage />},
       {
         path: "/add-book",

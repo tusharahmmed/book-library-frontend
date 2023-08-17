@@ -9,8 +9,17 @@ const bookApiSlice = apiSlice.injectEndpoints({
         body: data,
       }),
     }),
+    getBooks: builder.query({
+      query: (arg) => {
+        let url = "/books";
+        if (arg?.q) {
+          url = `${url}?searchTerm=${arg.q}`;
+        }
+        return url;
+      },
+    }),
   }),
 });
 
-export const {useAddBookMutation} = bookApiSlice;
+export const {useAddBookMutation, useGetBooksQuery} = bookApiSlice;
 export const bookSliceReducer = bookApiSlice.reducer;
