@@ -45,3 +45,16 @@ body {
 .swal-icon--success__hide-corners {
   background-color: transparent;
 }
+
+/* nav dropdown menu  */
+.nav-dropdown {
+  background: #27272a;
+  border: 1px solid;
+}
+.nav-dropdown-item {
+  color: white;
+}
+.nav-dropdown-item:hover {
+  background-color: #228be6;
+  color: white;
+}

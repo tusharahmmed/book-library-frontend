@@ -1,7 +1,7 @@
-import {useSelector} from "react-redux";
+import {useAppSelector} from "../rtk/hooks/hook";
 
 const useAuth = () => {
-  const auth = useSelector((state) => state?.auth);
+  const auth = useAppSelector((state) => state?.auth);
 
   if (auth?.accessToken && auth?.user) {
     return true;
