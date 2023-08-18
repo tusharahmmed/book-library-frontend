@@ -21,9 +21,19 @@ const bookApiSlice = apiSlice.injectEndpoints({
     getBookDetails: builder.query({
       query: (id) => `/books/${id}`,
     }),
+    deleteBook: builder.mutation({
+      query: (id: string) => ({
+        url: `/books/${id}`,
+        method: "DELETE",
+      }),
+    }),
   }),
 });
 
-export const {useAddBookMutation, useGetBooksQuery, useGetBookDetailsQuery} =
-  bookApiSlice;
+export const {
+  useAddBookMutation,
+  useGetBooksQuery,
+  useGetBookDetailsQuery,
+  useDeleteBookMutation,
+} = bookApiSlice;
 export const bookSliceReducer = bookApiSlice.reducer;

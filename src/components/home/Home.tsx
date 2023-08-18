@@ -6,7 +6,6 @@ const Home = () => {
   // get books
   const {isLoading, isError, data} = useGetBooksQuery(undefined);
 
-  console.log(data?.data[0]);
   let content = null;
 
   if (isLoading) {

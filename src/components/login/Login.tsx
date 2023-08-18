@@ -30,7 +30,6 @@ const Login = () => {
     if (!isLoading && isError) {
       setErrorMessage(error?.data?.message);
     }
-    console.log(data);
 
     // redirect
     if (data?.data?.accessToken && data?.data?.user) {

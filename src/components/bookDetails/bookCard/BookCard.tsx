@@ -1,10 +1,52 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-
-import {Link} from "react-router-dom";
+import {useEffect} from "react";
+import {Link, useNavigate} from "react-router-dom";
+import swal from "sweetalert";
+import {useDeleteBookMutation} from "../../../rtk/features/book/bookApi";
 
 const BookCard = ({data}: any) => {
+  const navigate = useNavigate();
+
   // destructure properties
   const {title, author, image, publicationYear, genres, _id} = data || {};
+
+  // rtk
+  const [
+    deleteBook,
+    {isLoading, data: successData, isError, error, isSuccess},
+  ] = useDeleteBookMutation();
+
+  // handel delete
+  const handleBookDelete = (_id: string) => {
+    swal("You want to delete this book", {
+      title: "Are you sure?",
+      icon: "warning",
+    }).then((willDelete) => {
+      if (willDelete) {
+        // call delete api
+        deleteBook(_id);
+      } else {
+        // if cancel
+      }
+    });
+  };
+
+  // listen response
+  useEffect(() => {
+    // check erro
+    if (isError && error?.data) {
+      swal(`${error?.data?.message}`, {
+        title: "Opps!",
+        icon: "error",
+      });
+    }
+
+    // check success
+    if (isSuccess && successData?.data) {
+      // redirect after delete
+      navigate("/");
+    }
+  }, [isError, isSuccess]);
 
   return (
     <div className="book body-font container p-5 mt-0 pb-10 mx-auto xl:w-3/4 bg-[#1B1B1B]">
@@ -43,7 +85,10 @@ const BookCard = ({data}: any) => {
                 Edit
               </button>
             </Link>
-            <button className="inline-flex items-center bg-red-500 border-0 py-2 px-4 rounded-xl	 focus:outline-none  text-white mt-4 md:mt-0 mr-2">
+            <button
+              disabled={isLoading}
+              onClick={() => handleBookDelete(_id)}
+              className="inline-flex items-center bg-red-500 border-0 py-2 px-4 rounded-xl	 focus:outline-none  text-white mt-4 md:mt-0 mr-2">
               Delete
             </button>
           </div>

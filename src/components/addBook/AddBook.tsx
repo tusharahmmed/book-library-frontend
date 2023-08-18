@@ -100,7 +100,7 @@ const AddBook = () => {
               className="bg-[#18181b] w-full h-[40px] rounded-lg px-4 border-1 border-[#3f3f46] focus:outline-none"
               type="text"
               placeholder="Image"
-              {...register("image", {required: true})}
+              {...register("image")}
             />
           </div>
 
