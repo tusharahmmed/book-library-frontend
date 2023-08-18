@@ -1,10 +1,10 @@
 import {ContentContainer} from "../layouts";
-import {BookDetailsPlaceholder} from "../components/bookDetails/placeholder";
+import BookDetails from "../components/bookDetails/bookDetails/BookDetails";
 
 const BookDetailsPage = () => {
   return (
     <ContentContainer>
-      <BookDetailsPlaceholder />
+      <BookDetails />
     </ContentContainer>
   );
 };

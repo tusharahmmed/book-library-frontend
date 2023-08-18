@@ -18,8 +18,12 @@ const bookApiSlice = apiSlice.injectEndpoints({
         return url;
       },
     }),
+    getBookDetails: builder.query({
+      query: (id) => `/books/${id}`,
+    }),
   }),
 });
 
-export const {useAddBookMutation, useGetBooksQuery} = bookApiSlice;
+export const {useAddBookMutation, useGetBooksQuery, useGetBookDetailsQuery} =
+  bookApiSlice;
 export const bookSliceReducer = bookApiSlice.reducer;

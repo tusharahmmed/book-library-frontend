@@ -8,7 +8,7 @@ const CardItem = ({data}: any) => {
   return (
     <div className="movies-item mx-auto  pb-4 rounded w-full bg-black mb-6 sm:mb-0 sm:mx-0">
       <Link
-        to={`/download/${_id}`}
+        to={`/books/${_id}`}
         className="movie-thumbnail block relative h-auto overflow-hidden">
         <img
           alt="movie"
