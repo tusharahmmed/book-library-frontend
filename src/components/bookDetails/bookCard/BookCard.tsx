@@ -4,6 +4,7 @@ import {Link, useNavigate} from "react-router-dom";
 import swal from "sweetalert";
 import {useDeleteBookMutation} from "../../../rtk/features/book/bookApi";
 import {useAppSelector} from "../../../rtk/hooks/hook";
+import WishListModal from "../../wishList/modal/WishListModal";
 
 const BookCard = ({data}: any) => {
   const navigate = useNavigate();
@@ -98,12 +99,11 @@ const BookCard = ({data}: any) => {
                 </button>
               </>
             ) : (
-              <button
-                disabled={isLoading}
-                // onClick={() => handleBookDelete(_id)}
-                className="inline-flex items-center bg-red-500 border-0 py-2 px-4 rounded-xl	 focus:outline-none  text-white mt-4 md:mt-0 mr-2">
-                Add to wishList
-              </button>
+              <WishListModal
+                form="add"
+                buttonText="Add to wishList"
+                bookData={data}
+              />
             )}
           </div>
         </div>

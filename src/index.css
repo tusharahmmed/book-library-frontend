@@ -5,8 +5,28 @@
 body {
   background-color: #18181b;
 }
+/* mantine select  */
 
-.multi-select .mantine-MultiSelect-input {
+.mantine-Select-dropdown,
+.mantine-MultiSelect-dropdown {
+  background-color: #18181b !important;
+  border-color: #18181b;
+  border: 1px solid;
+}
+.mantine-Select-item,
+.mantine-MultiSelect-item {
+  background-color: #18181b;
+  background: #18181b;
+  color: white;
+  transition: all 0.1s;
+}
+.mantine-Select-item:hover {
+  background-color: #27272a;
+  color: white;
+}
+
+.multi-select .mantine-MultiSelect-input,
+.mantine-Select-input {
   background-color: #18181b !important;
   color: white !important;
   border-radius: 8px;
@@ -44,6 +64,14 @@ body {
 }
 .swal-icon--success__hide-corners {
   background-color: transparent;
+}
+
+/* maintine modal */
+
+.mantine-Modal-header,
+.mantine-Modal-content {
+  background-color: #27272a;
+  color: white !important;
 }
 
 /* nav dropdown menu  */
