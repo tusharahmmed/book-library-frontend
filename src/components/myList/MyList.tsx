@@ -1,7 +1,20 @@
 import {Tabs} from "@mantine/core";
 import MyBook from "./myBook/MyBook";
+import {useGetWishlistQuery} from "../../rtk/features/wishList/wishApi";
+import {useAppSelector} from "../../rtk/hooks/hook";
+import ListedBook from "./listedBook/ListedBook";
 
 const Mylist = () => {
+  const userId = useAppSelector((state) => state?.auth?.user?._id);
+  const {isLoading, isError, data} = useGetWishlistQuery(userId);
+
+  const wishlistData = data?.data?.books?.filter(
+    (item) => item.status === "wishlist"
+  );
+  const currentlyReadData = data?.data?.books?.filter(
+    (item) => item.status === "currently reading"
+  );
+
   return (
     <div>
       <Tabs defaultValue="mybooks" color="#228be6a7">
@@ -16,11 +29,19 @@ const Mylist = () => {
         </Tabs.Panel>
 
         <Tabs.Panel value="wishList" pt="xs">
-          Messages tab content
+          <ListedBook
+            data={wishlistData}
+            isLoading={isLoading}
+            isError={isError}
+          />
         </Tabs.Panel>
 
         <Tabs.Panel value="currentlyReading" pt="xs">
-          Settings tab content
+          <ListedBook
+            data={currentlyReadData}
+            isLoading={isLoading}
+            isError={isError}
+          />
         </Tabs.Panel>
       </Tabs>
     </div>
