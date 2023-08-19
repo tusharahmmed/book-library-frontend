@@ -5,16 +5,70 @@ import swal from "sweetalert";
 import {useDeleteBookMutation} from "../../../rtk/features/book/bookApi";
 import {useAppSelector} from "../../../rtk/hooks/hook";
 import WishListModal from "../../wishList/modal/WishListModal";
+import {
+  useGetWishlistQuery,
+  useRemoveFromWishListMutation,
+} from "../../../rtk/features/wishList/wishApi";
 
 const BookCard = ({data}: any) => {
   const navigate = useNavigate();
   const userId = useAppSelector((state) => state?.auth?.user?._id);
+  const wishListBooks: string[] = useAppSelector(
+    (state) => state?.wishList?.books
+  );
 
   // destructure properties
   const {title, author, image, publicationYear, genres, _id, authorId} =
     data || {};
 
   // rtk
+
+  // wishlist
+  const {data: wishListData} = useGetWishlistQuery(userId);
+  const wishListDetails = wishListBooks?.find((item) => item?.bookId === _id);
+
+  const [
+    removeFromWishList,
+    {isLoading: wishLoading, error: wishEroor, isSuccess: wishSuccess},
+  ] = useRemoveFromWishListMutation();
+
+  const handleRemoveWishlist = (userId, wishListID) => {
+    swal("You want to remove this book", {
+      title: "Are you sure?",
+      icon: "warning",
+    }).then((willRemove) => {
+      if (willRemove) {
+        // call delete api
+        const data = {_id: wishListID};
+        removeFromWishList({userId, data});
+      } else {
+        // if cancel
+      }
+    });
+  };
+
+  // listen response
+  useEffect(() => {
+    // check erro
+    if (!wishLoading && wishEroor) {
+      swal(`${wishEroor?.data?.message}`, {
+        title: "Opps!",
+        icon: "error",
+      });
+    }
+
+    // check success
+    if (!wishLoading && wishSuccess?.data) {
+      swal("Successfully removed from wishlist", {
+        title: "Success",
+        icon: "success",
+        buttons: false,
+        timer: 1000,
+      });
+    }
+  }, [wishEroor, wishSuccess, wishLoading]);
+
+  // delete book
   const [
     deleteBook,
     {isLoading, data: successData, isError, error, isSuccess},
@@ -99,11 +153,25 @@ const BookCard = ({data}: any) => {
                 </button>
               </>
             ) : (
-              <WishListModal
-                form="add"
-                buttonText="Add to wishList"
-                bookData={data}
-              />
+              <>
+                {wishListDetails ? (
+                  <button
+                    onClick={() =>
+                      handleRemoveWishlist(userId, wishListDetails?._id)
+                    }
+                    className="inline-flex items-center bg-[#228BE6] border-0 py-2 px-4 rounded-xl	 focus:outline-none  text-white mt-4 md:mt-0 mr-2">
+                    Remove from Wishlist
+                  </button>
+                ) : (
+                  <>
+                    <WishListModal
+                      form="add"
+                      buttonText="Add to wishList"
+                      bookData={data}
+                    />
+                  </>
+                )}
+              </>
             )}
           </div>
         </div>
