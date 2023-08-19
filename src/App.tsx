@@ -4,14 +4,11 @@ import {routes} from "./routes";
 
 function App() {
   // check user logged in
-  const authCheckLoadin = useAuthCheck();
+  const authChecked = useAuthCheck();
 
-  if (!authCheckLoadin)
-    return (
-      <>
-        <RouterProvider router={routes} />
-      </>
-    );
+  if (authChecked) {
+    return <RouterProvider router={routes} />;
+  }
 }
 
 export default App;

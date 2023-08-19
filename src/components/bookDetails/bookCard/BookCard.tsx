@@ -3,12 +3,15 @@ import {useEffect} from "react";
 import {Link, useNavigate} from "react-router-dom";
 import swal from "sweetalert";
 import {useDeleteBookMutation} from "../../../rtk/features/book/bookApi";
+import {useAppSelector} from "../../../rtk/hooks/hook";
 
 const BookCard = ({data}: any) => {
   const navigate = useNavigate();
+  const userId = useAppSelector((state) => state?.auth?.user?._id);
 
   // destructure properties
-  const {title, author, image, publicationYear, genres, _id} = data || {};
+  const {title, author, image, publicationYear, genres, _id, authorId} =
+    data || {};
 
   // rtk
   const [
@@ -80,17 +83,28 @@ const BookCard = ({data}: any) => {
           </div>
 
           <div className="mt-4">
-            <Link to={`/edit-book/${_id}`}>
-              <button className="inline-flex items-center bg-[#228BE6] border-0 py-2 px-4 rounded-xl	 focus:outline-none  text-white mt-4 md:mt-0 mr-2">
-                Edit
+            {userId === authorId?._id ? (
+              <>
+                <Link to={`/edit-book/${_id}`}>
+                  <button className="inline-flex items-center bg-[#228BE6] border-0 py-2 px-4 rounded-xl	 focus:outline-none  text-white mt-4 md:mt-0 mr-2">
+                    Edit
+                  </button>
+                </Link>
+                <button
+                  disabled={isLoading}
+                  onClick={() => handleBookDelete(_id)}
+                  className="inline-flex items-center bg-red-500 border-0 py-2 px-4 rounded-xl	 focus:outline-none  text-white mt-4 md:mt-0 mr-2">
+                  Delete
+                </button>
+              </>
+            ) : (
+              <button
+                disabled={isLoading}
+                // onClick={() => handleBookDelete(_id)}
+                className="inline-flex items-center bg-red-500 border-0 py-2 px-4 rounded-xl	 focus:outline-none  text-white mt-4 md:mt-0 mr-2">
+                Add to wishList
               </button>
-            </Link>
-            <button
-              disabled={isLoading}
-              onClick={() => handleBookDelete(_id)}
-              className="inline-flex items-center bg-red-500 border-0 py-2 px-4 rounded-xl	 focus:outline-none  text-white mt-4 md:mt-0 mr-2">
-              Delete
-            </button>
+            )}
           </div>
         </div>
       </div>

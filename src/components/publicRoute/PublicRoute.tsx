@@ -7,13 +7,13 @@ interface privateRouteProps {
   children: ReactNode;
 }
 
-const PrivateRoute = ({children}: privateRouteProps) => {
+const PublicRoute = ({children}: privateRouteProps) => {
   const isLoggedIn = useAuth();
-  if (!isLoggedIn) {
-    return <Navigate to={"/login"} />;
+  if (isLoggedIn) {
+    return <Navigate to={"/"} />;
   }
 
   return children;
 };
 
-export default PrivateRoute;
+export default PublicRoute;
