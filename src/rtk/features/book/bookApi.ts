@@ -34,6 +34,9 @@ const bookApiSlice = apiSlice.injectEndpoints({
         method: "DELETE",
       }),
     }),
+    getMyBooks: builder.query({
+      query: (id) => `/books/my-books/${id}`,
+    }),
   }),
 });
 
@@ -43,5 +46,6 @@ export const {
   useGetBookDetailsQuery,
   useEditBookMutation,
   useDeleteBookMutation,
+  useGetMyBooksQuery,
 } = bookApiSlice;
 export const bookSliceReducer = bookApiSlice.reducer;

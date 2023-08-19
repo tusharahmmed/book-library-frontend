@@ -5,6 +5,7 @@ import {
   EditBook,
   HomePage,
   LoginPage,
+  MyListPage,
   NotFound,
   RegisterPage,
 } from "../pages";
@@ -39,6 +40,14 @@ export const routes = createBrowserRouter([
         element: (
           <PrivateRoute>
             <EditBook />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/my-list",
+        element: (
+          <PrivateRoute>
+            <MyListPage />
           </PrivateRoute>
         ),
       },

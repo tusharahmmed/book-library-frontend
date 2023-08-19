@@ -86,3 +86,28 @@ body {
   background-color: #228be6;
   color: white;
 }
+
+/* mantine tab */
+.mantine-Tabs-tabsList {
+  /* border: none; */
+  border-color: #228be695;
+}
+.mantine-Tabs-tab {
+  color: white;
+  background-color: #27272a;
+  border-bottom: none;
+  transition: all 0.1s ease;
+  padding: 15px 30px;
+  font-size: 16px;
+  margin-right: 0px;
+  border-radius: 2px;
+}
+.mantine-Tabs-tab:hover {
+  color: white;
+  background-color: #228be6a7;
+  border-color: #228be6a7;
+}
+.mantine-1hher0m[data-active] {
+  background-color: #228be6;
+  color: white;
+}
