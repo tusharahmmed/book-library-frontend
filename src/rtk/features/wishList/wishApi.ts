@@ -1,5 +1,9 @@
 import {apiSlice} from "../api/ApiSlice";
-import {addWishBookIds, removeWishBookId} from "./wishSlice";
+import {
+  addWishBookIds,
+  removeWishBookId,
+  updateWishListSatus,
+} from "./wishSlice";
 
 const wishApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -40,6 +44,25 @@ const wishApiSlice = apiSlice.injectEndpoints({
         }
       },
     }),
+    updateWishList: builder.mutation({
+      query: ({userId, data}) => ({
+        url: `/wish-lists/${userId}`,
+        method: "PATCH",
+        body: data,
+      }),
+      async onQueryStarted(arg, {queryFulfilled, dispatch}) {
+        try {
+          const result = await queryFulfilled;
+
+          // dispatch loggedin
+          dispatch(
+            updateWishListSatus({arg: arg.data, data: result.data?.data?.books})
+          );
+        } catch (error) {
+          // do nothing
+        }
+      },
+    }),
   }),
 });
 
@@ -47,4 +70,5 @@ export const {
   useAddtoWishListMutation,
   useGetWishlistQuery,
   useRemoveFromWishListMutation,
+  useUpdateWishListMutation,
 } = wishApiSlice;

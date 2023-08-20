@@ -1,16 +1,22 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {useDisclosure} from "@mantine/hooks";
 import {Modal, Group} from "@mantine/core";
 import AddFrom from "../addForm/AddFrom";
 import EditForm from "../editForm/EditForm";
-import {IBook} from "../../../types/book";
 
 interface modalProps {
   buttonText: string;
   form: "add" | "edit";
-  bookData: IBook;
+  bookData: any;
+  title?: string;
 }
 
-const WishListModal: React.FC<modalProps> = ({buttonText, form, bookData}) => {
+const WishListModal: React.FC<modalProps> = ({
+  buttonText,
+  form,
+  bookData,
+  title,
+}) => {
   const [opened, {open, close}] = useDisclosure(false);
 
   return (
@@ -20,7 +26,7 @@ const WishListModal: React.FC<modalProps> = ({buttonText, form, bookData}) => {
         {form === "add" ? (
           <AddFrom data={bookData} close={close} />
         ) : (
-          <EditForm data={bookData} />
+          <EditForm data={bookData} title={title as string} close={close} />
         )}
       </Modal>
 

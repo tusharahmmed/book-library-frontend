@@ -155,13 +155,21 @@ const BookCard = ({data}: any) => {
             ) : (
               <>
                 {wishListDetails ? (
-                  <button
-                    onClick={() =>
-                      handleRemoveWishlist(userId, wishListDetails?._id)
-                    }
-                    className="inline-flex items-center bg-[#228BE6] border-0 py-2 px-4 rounded-xl	 focus:outline-none  text-white mt-4 md:mt-0 mr-2">
-                    Remove from Wishlist
-                  </button>
+                  <div className="flex">
+                    <WishListModal
+                      form="edit"
+                      buttonText="Update status"
+                      bookData={wishListDetails}
+                      title={data?.title}
+                    />
+                    <button
+                      onClick={() =>
+                        handleRemoveWishlist(userId, wishListDetails?._id)
+                      }
+                      className="inline-flex items-center bg-red-500 border-0 py-2 px-4 rounded-xl	 focus:outline-none  text-white mt-4 md:mt-0 mr-2">
+                      Remove
+                    </button>
+                  </div>
                 ) : (
                   <>
                     <WishListModal

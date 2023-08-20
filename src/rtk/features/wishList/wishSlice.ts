@@ -24,8 +24,20 @@ const wishSlice = createSlice({
         (item) => item?.bookID !== removedBookId
       );
     },
+    updateWishListSatus: (state, action) => {
+      const updatedData = action.payload;
+
+      state.books = state.books.map((obj) => {
+        if (obj._id === updatedData?.arg?._id) {
+          return {...obj, status: updatedData?.arg?.status};
+        }
+
+        return obj;
+      });
+    },
   },
 });
 
-export const {addWishBookIds, removeWishBookId} = wishSlice.actions;
+export const {addWishBookIds, removeWishBookId, updateWishListSatus} =
+  wishSlice.actions;
 export const wishReducer = wishSlice.reducer;
