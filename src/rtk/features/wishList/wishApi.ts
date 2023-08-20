@@ -13,9 +13,11 @@ const wishApiSlice = apiSlice.injectEndpoints({
         method: "POST",
         body: data,
       }),
+      invalidatesTags: ["Wishlist"],
     }),
     getWishlist: builder.query({
       query: (id) => `/wish-lists/${id}`,
+      providesTags: ["Wishlist"],
       async onQueryStarted(arg, {queryFulfilled, dispatch}) {
         try {
           const result = await queryFulfilled;
@@ -33,6 +35,7 @@ const wishApiSlice = apiSlice.injectEndpoints({
         method: "PATCH",
         body: data,
       }),
+      invalidatesTags: ["Wishlist", "Book"],
       async onQueryStarted(arg, {queryFulfilled, dispatch}) {
         try {
           const result = await queryFulfilled;
@@ -50,14 +53,13 @@ const wishApiSlice = apiSlice.injectEndpoints({
         method: "PATCH",
         body: data,
       }),
+      invalidatesTags: ["Books", "Book", "Wishlist"],
       async onQueryStarted(arg, {queryFulfilled, dispatch}) {
         try {
           const result = await queryFulfilled;
 
           // dispatch loggedin
-          dispatch(
-            updateWishListSatus({arg: arg.data, data: result.data?.data?.books})
-          );
+          dispatch(updateWishListSatus(result.data?.data?.books));
         } catch (error) {
           // do nothing
         }

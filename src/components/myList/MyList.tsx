@@ -6,7 +6,9 @@ import ListedBook from "./listedBook/ListedBook";
 
 const Mylist = () => {
   const userId = useAppSelector((state) => state?.auth?.user?._id);
-  const {isLoading, isError, data} = useGetWishlistQuery(userId);
+  const {isLoading, isError, data} = useGetWishlistQuery(userId, {
+    refetchOnFocus: true,
+  });
 
   const wishlistData = data?.data?.books?.filter(
     (item) => item.status === "wishlist"
@@ -17,7 +19,7 @@ const Mylist = () => {
 
   return (
     <div>
-      <Tabs defaultValue="mybooks" color="#228be6a7">
+      <Tabs keepMounted={true} defaultValue="mybooks" color="#228be6a7">
         <Tabs.List color="#228be6a7" variant="pills">
           <Tabs.Tab value="mybooks">My Books</Tabs.Tab>
           <Tabs.Tab value="wishList">Wish List</Tabs.Tab>

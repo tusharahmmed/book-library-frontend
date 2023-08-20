@@ -22,8 +22,7 @@ const bookApiSlice = apiSlice.injectEndpoints({
     }),
     getBookDetails: builder.query({
       query: (id) => `/books/${id}`,
-      providesTags: (result, error, arg) => [{type: "Book", id: arg}],
-      keepUnusedDataFor: 600,
+      providesTags: ["Book"],
     }),
     editBook: builder.mutation({
       query: ({id, data}) => ({
@@ -34,7 +33,8 @@ const bookApiSlice = apiSlice.injectEndpoints({
       invalidatesTags: (result, error, arg) => [
         "Books",
         "Mybook",
-        {type: "Book", id: arg.id},
+        "Wishlist",
+        "Book",
       ],
     }),
     deleteBook: builder.mutation({
@@ -42,7 +42,12 @@ const bookApiSlice = apiSlice.injectEndpoints({
         url: `/books/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: ["Books", "Mybook"],
+      invalidatesTags: (result, error, arg) => [
+        "Books",
+        "Mybook",
+        "Wishlist",
+        "Book",
+      ],
     }),
     getMyBooks: builder.query({
       query: (id) => `/books/my-books/${id}`,

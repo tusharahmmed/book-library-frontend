@@ -24,7 +24,9 @@ const BookCard = ({data}: any) => {
   // rtk
 
   // wishlist
-  const {data: wishListData} = useGetWishlistQuery(userId);
+  const {data: wishListData} = useGetWishlistQuery(userId, {
+    refetchOnFocus: true,
+  });
   const wishListDetails = wishListBooks?.find((item) => item?.bookId === _id);
 
   const [
