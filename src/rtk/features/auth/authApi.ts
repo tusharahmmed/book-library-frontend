@@ -1,6 +1,6 @@
 /* eslint-disable no-shadow-restricted-names */
 import {apiSlice} from "../api/ApiSlice";
-import {userLoggedIn} from "./authSlice";
+import {userLoggedIn, userLoggedOut} from "./authSlice";
 
 export const authApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -54,8 +54,28 @@ export const authApi = apiSlice.injectEndpoints({
         }
       },
     }),
+    userLogout: builder.mutation({
+      query: () => ({
+        url: "/auth/logout",
+        method: "POST",
+      }),
+      async onQueryStarted(arg, {dispatch, queryFulfilled}) {
+        try {
+          const result = await queryFulfilled;
+
+          // dispatch loggedin
+          dispatch(userLoggedOut());
+        } catch (error) {
+          // do nothing
+        }
+      },
+    }),
   }),
 });
 
-export const {useUserLoginMutation, useUserRegisterMutation, useGetAuthQuery} =
-  authApi;
+export const {
+  useUserLoginMutation,
+  useUserRegisterMutation,
+  useGetAuthQuery,
+  useUserLogoutMutation,
+} = authApi;

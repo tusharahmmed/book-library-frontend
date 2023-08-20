@@ -1,7 +1,25 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import {Menu, Button} from "@mantine/core";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
+import {useUserLogoutMutation} from "../../../rtk/features/auth/authApi";
 
 const MenuItem = () => {
+  const [userLogout] = useUserLogoutMutation();
+
+  const handleLogout = () => {
+    navigate("/");
+    // call the api
+    userLogout(undefined);
+  };
+
+  const navigate = useNavigate();
+
+  // // listen response
+  // useEffect(() => {
+  //   if (!isLoading && isSuccess) {
+  //   }
+  // }, [isSuccess, isError, isLoading, navigate]);
+
   return (
     <Menu width={140}>
       <Menu.Target>
@@ -35,6 +53,7 @@ const MenuItem = () => {
           </Menu.Item>
         </Link>
         <Menu.Item
+          onClick={handleLogout}
           className="nav-dropdown-item"
           icon={
             <svg
