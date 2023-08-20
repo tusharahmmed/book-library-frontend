@@ -12,8 +12,8 @@ const bookApiSlice = apiSlice.injectEndpoints({
     getBooks: builder.query({
       query: (arg) => {
         let url = "/books";
-        if (arg?.q) {
-          url = `${url}?searchTerm=${arg.q}`;
+        if (arg?.searchTerm) {
+          url = `${url}?searchTerm=${arg.searchTerm}`;
         }
         return url;
       },

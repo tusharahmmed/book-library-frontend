@@ -2,11 +2,13 @@ import {configureStore} from "@reduxjs/toolkit";
 import {apiSlice} from "../features/api/ApiSlice";
 import {authSliceReducer} from "../features/auth/authSlice";
 import {wishReducer} from "../features/wishList/wishSlice";
+import {bookReducer} from "../features/book/bookSlice";
 
 export const store = configureStore({
   reducer: {
     [apiSlice.reducerPath]: apiSlice.reducer,
     auth: authSliceReducer,
+    book: bookReducer,
     wishList: wishReducer,
   },
   middleware: (getDefaultMiddlewares) =>

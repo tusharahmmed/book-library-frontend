@@ -1,10 +1,18 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import {useGetBooksQuery} from "../../rtk/features/book/bookApi";
+import {useAppSelector} from "../../rtk/hooks/hook";
 import {CardItem, CardPlaceholder} from "../shared";
 
 const Home = () => {
+  // get searchTerm
+  const {searchTerm} = useAppSelector((state) => state.book);
   // get books
-  const {isLoading, isError, data} = useGetBooksQuery(undefined);
+  const {isLoading, isError, data} = useGetBooksQuery(
+    {searchTerm},
+    {
+      refetchOnMountOrArgChange: true,
+    }
+  );
 
   let content = null;
 

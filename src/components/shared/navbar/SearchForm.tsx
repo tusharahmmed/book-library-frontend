@@ -1,4 +1,35 @@
+import {useMatch, useNavigate} from "react-router-dom";
+import {setSearchTerm} from "../../../rtk/features/book/bookSlice";
+import {useAppDispatch} from "../../../rtk/hooks/hook";
+
 const SearchForm = () => {
+  const dispatch = useAppDispatch();
+  const match = useMatch("/");
+  const navigate = useNavigate();
+
+  // search debounce
+  const debounce = (cb, delay = 700) => {
+    let timeoutId;
+
+    return (...args) => {
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+
+      timeoutId = setTimeout(() => {
+        cb(...args);
+      }, delay);
+    };
+  };
+
+  const handleSearch = debounce((e) => {
+    // if not homepage, then redirect home page after search
+    if (!match) {
+      navigate("/");
+    }
+    dispatch(setSearchTerm(e.target.value));
+  });
+
   return (
     <form
       // ref={formRef}
@@ -11,11 +42,13 @@ const SearchForm = () => {
         id="search-movie"
         type="search"
         placeholder="Search"
+        onChange={handleSearch}
         className="z-[15] bg-[#18181b] border border-1 border-[#3f3f46] h-10 px-5 pr-10 rounded-lg text-sm lg:w-96 focus:outline-none text-gray-100"
       />
       <button
         id="form-btn"
         type="submit"
+        disabled
         className="absolute rounded-md right-[16px] top-[1px] mt-0 -mr-4 bg-[#228BE6] p-[7px] text-white font-bold">
         <svg
           xmlns="http://www.w3.org/2000/svg"
