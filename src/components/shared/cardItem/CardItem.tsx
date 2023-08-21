@@ -16,18 +16,20 @@ const CardItem = ({data}: any) => {
           src={image}
         />
       </Link>
-      <div className="movie-info mt-4">
-        <p className="text-white text-center font-medium text-lg title-font mb-1">
-          {title}
-        </p>
-      </div>
-      <div className="movie-info mt-4">
-        <p className="text-white text-center font-medium text-lg title-font mb-1">
-          Published: {publicationYear}
-          <br />
-          Author: {author}
-        </p>
-      </div>
+      <Link to={`/books/${_id}`}>
+        <div className="movie-info mt-4">
+          <p className="text-white text-center font-medium text-lg title-font mb-1">
+            {title}
+          </p>
+        </div>
+        <div className="movie-info mt-4">
+          <p className="text-white text-center font-medium text-lg title-font mb-1">
+            Published: {publicationYear}
+            <br />
+            Author: {author}
+          </p>
+        </div>
+      </Link>
     </div>
   );
 };

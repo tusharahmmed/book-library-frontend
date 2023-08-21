@@ -53,7 +53,7 @@ const Login = () => {
           <div className="mb-4">
             <input
               className="bg-[#18181b] w-full h-[40px] rounded-lg px-4 border-1 border-[#3f3f46] focus:outline-none"
-              type="text"
+              type="password"
               placeholder="Password"
               {...register("password", {required: true})}
             />

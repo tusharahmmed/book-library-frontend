@@ -15,7 +15,8 @@ const Navbar = () => {
             className="flex title-font font-medium items-center text-white mb-4 md:mb-0">
             <img
               className="cursor-pointer"
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRuBQre0NeC1be_jIXcKP2uWKDXwXRhhgg5Tg&usqp=CAU"
+              // src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRuBQre0NeC1be_jIXcKP2uWKDXwXRhhgg5Tg&usqp=CAU"
+              src="/logo.png"
               alt=""
               height={50}
               width={50}

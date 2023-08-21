@@ -1,27 +1,37 @@
-# React + TypeScript + Vite
+# Digital Book Store
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A Book Store Web Application using `React.js`
 
-Currently, two official plugins are available:
+## Demo
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+[Live Preview](https://digital-books-store.netlify.app/)
 
-## Expanding the ESLint configuration
+## Features
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- Fully Functional Web Application using `React.js`
+- Visitors can find preferred book list
+- Authenticated users can add a new book by filling out a form.
+- Authenticate users can edit a book using a form.
+- Authenticate users can add books they want to read in the future. Users can also create a list of books they are currently reading or plan to read soon.
 
-- Configure the top-level `parserOptions` property like this:
+## Technology Used
 
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
-```
+- **React:** For create user interface
+- **Redux-toolkit:** as a state mangement tool
+- **RTK-Query** as a api mangement tool
+- **Tailwind css** as a css frameword
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## Environment Variables
+
+To run this project, you will need to add the following environment variables to your .env.local file.
+These all are firebase credentials.
+
+`VITE_BASE_URL`: backend_base_url
+
+## Backend of this project
+
+[Backend Repository](https://github.com/tusharahmmed/book-library-backend)
+
+## Copyright
+
+© Copyright 2022 all right reserved [Tushar Ahmmed](https://github.com/tusharahmmed)

@@ -38,7 +38,6 @@ const Form = (data: any) => {
   } = useForm<IBook>();
 
   const onSubmit: SubmitHandler<IBook> = (data) => {
-    console.log(errors);
     // empty error
     setErrorMessage("");
     // append to data
